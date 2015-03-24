@@ -1,0 +1,79 @@
+<script type="text/template" id="pokemon-list-item-template">
+  <li data-id="<%%= pokemon.get('id') %>" class="poke-list-item">
+   Name: <%%= pokemon.escape('name') %>
+   <br>
+   Type: <%%= pokemon.escape('poke_type') %>
+  </li>
+</script>
+
+<script type="text/template" id="pokemon-detail-template">
+  <div class="detail">
+    <img src="<%%= pokemon.escape('image_url') %>"></img>
+  </div>
+
+  <ul>
+    <li>Name: <%%= pokemon.escape('name') %></li>
+    <li>Attack: <%%= pokemon.escape('attack') %></li>
+    <li>Defense: <%%= pokemon.escape('defense') %></li>
+    <li>Type: <%%= pokemon.escape('poke_type') %></li>
+    <li>Moves: <%%= pokemon.escape('moves') %></li>
+  </ul>
+  <br>
+  <ul class="toys">
+    <strong>TOYS:</strong>
+  </ul>
+</script>
+
+<script type="text/template" id="toy-list-item-template">
+  <li class="toy-list-item" data-id="<%%= toy.escape('id') %>"
+      data-pokemon-id="<%%= toy.escape('pokemon_id') %>">
+    name: <%%= toy.escape('name') %>
+    <br>
+    happiness: <%%= toy.escape('happiness') %>
+    <br>
+    price: <%%= toy.escape('price') %>
+  </li>
+</script>
+
+<script type="text/template" id="toy-detail-template">
+  <div class="detail">
+    <img src="<%%= toy.escape('image_url') %>">
+    <br>
+    <span>Name: <%%= toy.escape('name') %></span><br>
+    <span>ID: <%%= toy.escape('id') %></span><br>
+    <span>Happiness: <%%= toy.escape('happiness') %></span><br>
+    <span>Price: <%%= toy.escape('price') %></span>
+    <br>
+    <select data-pokemon-id="<%%= toy.escape("pokemon_id") %>"
+             data-toy-it="<%%= toy.escape("id") %>">
+          <%% if (pokemon) {%>
+             <%% pokemon.each(function(poke) { %>
+               <option
+
+               <%% if(poke.escape('id') === toy.escape('pokemon_id')) { %>
+                 selected
+              <%% } %>
+
+               value="<%%= poke.escape('id') %>">
+                 <%%= poke.escape('name') %>
+               </option>
+             <%% }) %>
+          <%% } %>
+
+    </select>
+  </div>
+</script>
+
+
+<script type="text/template" id="pokemon-form-template">
+</script>
+
+<!-- // for (var attr in toy.attributes) {
+//   if(attr !== 'pokemon_id' && attr !== 'image_url') {
+//     var $span = $('<span style="font-weight:bold;">');
+//     $span.html(attr + ': ');
+//     $detail.append($span);
+//     $detail.append(toy.get(attr));
+//     $detail.append('<br>');
+//   }
+// } -->

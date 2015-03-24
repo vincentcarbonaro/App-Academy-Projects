@@ -1,0 +1,54 @@
+def login
+  loop do
+    puts "Enter your email."
+    email = gets.chomp
+    user = User.find_by_email(email)
+
+    return user if user
+  end
+end
+
+def option
+  loop do
+    puts "Which would you like to do?"
+    puts "Enter 1 for creating a shortened URL"
+    puts "Enter 2 for visiting a URL"
+    opt = gets.chomp
+
+    return :create if opt == "1"
+    return :visit if opt == "2"
+  end
+end
+
+def long_url_prompt
+  loop do
+    puts "Enter the URL you would like to shorten."
+    url = gets.chomp
+
+    return url if !url.empty?
+  end
+end
+
+def short_url_prompt
+  loop do
+    puts "Enter the short URL you would like to visit."
+    url = gets.chomp
+
+    shortened = ShortenedURL.find_by_short_url(url)
+    return shortened if shortened
+    puts "Didn't find that URL. Try again."
+  end
+end
+
+user = login
+
+opt = option
+
+if opt == :create
+  url = long_url_prompt
+  short = ShortenedURL.create_for_user_and_long_url!(user, url)
+  puts short.short_url
+else
+  url = short_url_prompt
+  Launchy.open(url.long_url)
+end

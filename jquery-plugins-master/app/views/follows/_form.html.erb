@@ -1,0 +1,27 @@
+<!-- OLD BUTTONS!
+<% if current_user.follows?(user) %>
+
+  <%= button_to "old Unfollow", user_follow_url(user), method: :delete %>
+
+<% else %>
+
+  <%= button_to "old Follow", user_follow_url(user), method: :post %>
+
+<% end %> -->
+
+
+<!-- default set follow state to false -->
+<% follow_state = "unfollowed" %>
+
+<!-- if the current_user's followers include the current_follower, change to true  -->
+<% if(current_user.followees.include?(user)) %>
+  <% follow_state = "followed" %>
+<% end %>
+
+<br>
+
+<button class="follow-toggle"
+        data-user-id="<%= user.id %>"
+        data-follow-state="<%= follow_state %>"></button>
+<br>
+<br>

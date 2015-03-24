@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>MusicApp</title>
+  <%= csrf_meta_tags %>
+
+</head>
+<body>
+
+<%= yield %>
+
+<% if logged_in? %>
+
+<br>
+
+  <%= current_user.email %>
+
+  - is logged in
+
+  <br>
+
+  <%= button_to "Logout", session_url, method: :delete %>
+
+<% else %>
+
+<br>
+<br>
+<br>
+  No user logged in
+
+<% end %>
+
+</body>
+</html>
